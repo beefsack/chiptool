@@ -13,6 +13,8 @@ export default class App extends React.Component {
   };
   state = {
     cubeRotation: new THREE.Euler(),
+    lightPosition: new THREE.Vector3(3, 5, 10),
+    lightTarget: new THREE.Vector3(),
   };
 
   constructor(props, context) {
@@ -24,8 +26,8 @@ export default class App extends React.Component {
   onAnimate() {
     this.setState({
       cubeRotation: new THREE.Euler(
-        this.state.cubeRotation.x + 0.1,
-        this.state.cubeRotation.y + 0.1,
+        this.state.cubeRotation.x + 0.02,
+        this.state.cubeRotation.y + 0.02,
         0,
       )
     })
@@ -40,8 +42,12 @@ export default class App extends React.Component {
       width={width}
       height={height}
       onAnimate={this.onAnimate}
+      antialias={true}
     >
       <scene>
+        <ambientLight
+          intensity={0.2}
+        />
         <perspectiveCamera
           name="camera"
           fov={75}
@@ -49,6 +55,11 @@ export default class App extends React.Component {
           near={0.1}
           far={1000}
           position={this.props.cameraPosition}
+        />
+        <pointLight
+          castShadow={true}
+          position={this.state.lightPosition}
+          decay={2}
         />
         <mesh
           rotation={this.state.cubeRotation}
@@ -58,7 +69,7 @@ export default class App extends React.Component {
             height={1}
             depth={1}
           />
-          <meshBasicMaterial
+          <meshLambertMaterial
             color={0x00ff00}
           />
         </mesh>
