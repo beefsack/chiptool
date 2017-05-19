@@ -36,7 +36,7 @@ export default class Chip extends React.Component<Props, State> {
       clipPath="url(#chip-clip)"
     >
       {angles.map((angle) => <g
-        transform={`translate(${halfSize}, ${halfSize}) rotate(${angle}) translate(0, -${layer.offset || 0})`}
+        transform={`translate(${halfSize}, ${halfSize}) rotate(${angle}) translate(${layer.cx || 0}, -${layer.cy || 0})`}
       >
         {this.renderLayerKind(layer.kind)}
       </g>)}
@@ -47,6 +47,7 @@ export default class Chip extends React.Component<Props, State> {
     switch (layerKind.kind) {
       case Models.CIRCLE: return this.renderCircle(layerKind);
       case Models.CURVED_RECT: return this.renderCurvedRect(layerKind);
+      case Models.TEXT: return this.renderText(layerKind);
       case Models.CURVED_TEXT: return this.renderCurvedText(layerKind);
     }
   }
@@ -90,6 +91,16 @@ export default class Chip extends React.Component<Props, State> {
     />;
   }
 
+  renderText(text: Models.Text): JSX.Element {
+    return <text
+      fontFamily={text.fontFamily}
+      fontSize={text.fontSize}
+      fill={Models.toRGBA(text.color)}
+    >
+      {text.content}
+    </text>;
+  }
+
   renderCurvedText(text: Models.CurvedText): JSX.Element {
     const rad = text.radius;
     const dblRad = text.radius * 2;
@@ -101,16 +112,16 @@ export default class Chip extends React.Component<Props, State> {
         />
       </defs>
       <text
-        fontFamily={text.fontFamily}
-        fontSize={text.fontSize}
+        fontFamily={text.text.fontFamily}
+        fontSize={text.text.fontSize}
         textAnchor="middle"
-        fill={Models.toRGBA(text.color)}
+        fill={Models.toRGBA(text.text.color)}
       >
         <textPath
           xlinkHref="#fart"
           startOffset="25%"
         >
-          {text.text}
+          {text.text.content}
         </textPath>
       </text>
     </g>;

@@ -21,7 +21,8 @@ export interface Chip {
 
 export interface Layer {
   angle?: number;
-  offset?: number;
+  cx?: number;
+  cy?: number;
   count?: number;
   kind: LayerKind;
 }
@@ -29,11 +30,13 @@ export interface Layer {
 export type LayerKind
   = Circle
   | CurvedRect
+  | Text
   | CurvedText
   ;
 
 export const CIRCLE = 'CIRCLE';
 export const CURVED_RECT = 'CURVED_RECT';
+export const TEXT = 'TEXT';
 export const CURVED_TEXT = 'CURVED_TEXT';
 
 export interface Circle {
@@ -50,11 +53,16 @@ export interface CurvedRect {
   color: Color;
 }
 
-export interface CurvedText {
-  kind: typeof CURVED_TEXT;
-  text: string;
+export interface Text {
+  kind: typeof TEXT;
+  content: string;
   fontFamily: string;
   fontSize: number;
   color: Color;
+}
+
+export interface CurvedText {
+  kind: typeof CURVED_TEXT;
+  text: Text;
   radius: number;
 }

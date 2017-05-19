@@ -11,13 +11,17 @@ export interface State {
 
 export default class App extends React.Component<Props, State> {
   render() {
-    return <div>
+    return <div
+      style={{
+        margin: 100,
+      }}
+    >
       <Chip
         width={500}
         height={500}
         chip={{
           size: 39,
-          color: { r: 225, g: 128, b: 0, a: 255 },
+          color: { r: 255, g: 136, b: 0, a: 255 },
           layers: [
             {
               kind: {
@@ -39,9 +43,9 @@ export default class App extends React.Component<Props, State> {
                 radius: 19.5,
                 angle: 20,
                 height: 10,
-                color: { r: 0, g: 143, b: 255 },
+                color: { r: 0, g: 106, b: 255 },
               },
-              offset: 19.5,
+              cy: 19.5,
               count: 4,
             },
             {
@@ -52,19 +56,22 @@ export default class App extends React.Component<Props, State> {
                 height: 10,
                 color: { r: 255, g: 255, b: 255 },
               },
-              offset: 19.5,
+              cy: 19.5,
               count: 4,
             },
             {
               kind: {
                 kind: Models.CURVED_TEXT,
-                text: '25c',
-                fontSize: 2.5,
-                fontFamily: 'Sans Serif',
                 radius: 16,
-                color: { r: 0, g: 143, b: 255 },
+                text: {
+                  kind: Models.TEXT,
+                  content: '25c',
+                  fontSize: 2.5,
+                  fontFamily: 'Sans Serif',
+                  color: { r: 0, g: 106, b: 255 },
+                },
               },
-              offset: 15.3,
+              cy: 15.3,
               angle: 45,
               count: 4,
             }
