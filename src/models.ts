@@ -29,10 +29,12 @@ export interface Layer {
 export type LayerKind
   = Circle
   | CurvedRect
+  | CurvedText
   ;
 
 export const CIRCLE = 'CIRCLE';
 export const CURVED_RECT = 'CURVED_RECT';
+export const CURVED_TEXT = 'CURVED_TEXT';
 
 export interface Circle {
   kind: typeof CIRCLE;
@@ -46,4 +48,13 @@ export interface CurvedRect {
   angle: number;
   height: number;
   color: Color;
+}
+
+export interface CurvedText {
+  kind: typeof CURVED_TEXT;
+  text: string;
+  fontFamily: string;
+  fontSize: number;
+  color: Color;
+  radius: number;
 }

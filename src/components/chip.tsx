@@ -47,6 +47,7 @@ export default class Chip extends React.Component<Props, State> {
     switch (layerKind.kind) {
       case Models.CIRCLE: return this.renderCircle(layerKind);
       case Models.CURVED_RECT: return this.renderCurvedRect(layerKind);
+      case Models.CURVED_TEXT: return this.renderCurvedText(layerKind);
     }
   }
 
@@ -87,6 +88,32 @@ export default class Chip extends React.Component<Props, State> {
       transform="rotate(180)"
       fill={Models.toRGBA(rect.color)}
     />;
+  }
+
+  renderCurvedText(text: Models.CurvedText): JSX.Element {
+    const rad = text.radius;
+    const dblRad = text.radius * 2;
+    return <g>
+      <defs>
+        <path
+          id="fart"
+          d={`M 0 ${rad} m ${-rad} 0 a ${rad} ${rad} 0 1 1 ${dblRad} 0 a ${rad} ${rad} 0 1 1 ${-dblRad} 0`}
+        />
+      </defs>
+      <text
+        fontFamily={text.fontFamily}
+        fontSize={text.fontSize}
+        textAnchor="middle"
+        fill={Models.toRGBA(text.color)}
+      >
+        <textPath
+          xlinkHref="#fart"
+          startOffset="25%"
+        >
+          {text.text}
+        </textPath>
+      </text>
+    </g>;
   }
 
   render() {

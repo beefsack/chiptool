@@ -55,6 +55,19 @@ export default class App extends React.Component<Props, State> {
               offset: 19.5,
               count: 4,
             },
+            {
+              kind: {
+                kind: Models.CURVED_TEXT,
+                text: '25c',
+                fontSize: 2.5,
+                fontFamily: 'Sans Serif',
+                radius: 16,
+                color: { r: 0, g: 143, b: 255 },
+              },
+              offset: 15.3,
+              angle: 45,
+              count: 4,
+            }
           ],
         }}
       />
