@@ -26,12 +26,24 @@ export interface Layer {
   kind: LayerKind;
 }
 
-export type LayerKind = Circle;
+export type LayerKind
+  = Circle
+  | CurvedRect
+  ;
 
 export const CIRCLE = 'CIRCLE';
+export const CURVED_RECT = 'CURVED_RECT';
 
 export interface Circle {
   kind: typeof CIRCLE;
   radius: number;
+  color: Color;
+}
+
+export interface CurvedRect {
+  kind: typeof CURVED_RECT;
+  radius: number;
+  width: number;
+  height: number;
   color: Color;
 }

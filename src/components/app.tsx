@@ -35,12 +35,25 @@ export default class App extends React.Component<Props, State> {
             },
             {
               kind: {
-                kind: Models.CIRCLE,
-                radius: 2,
+                kind: Models.CURVED_RECT,
+                radius: 19.5,
+                width: 12,
+                height: 10,
                 color: { r: 0, g: 143, b: 255 },
               },
-              offset: 16,
-              count: 5,
+              offset: 19.5,
+              count: 4,
+            },
+            {
+              kind: {
+                kind: Models.CURVED_RECT,
+                radius: 19.5,
+                width: 3.3,
+                height: 10,
+                color: { r: 255, g: 255, b: 255 },
+              },
+              offset: 19.5,
+              count: 4,
             },
           ],
         }}

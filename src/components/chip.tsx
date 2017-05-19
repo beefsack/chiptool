@@ -23,7 +23,7 @@ export default class Chip extends React.Component<Props, State> {
     return Math.min(this.props.width, this.props.height);
   }
 
-  renderLayer(layer: Models.Layer) {
+  renderLayer(layer: Models.Layer): JSX.Element {
     const halfSize = this.props.chip.size / 2;
     let angles = [layer.angle || 0];
     if (layer.count !== undefined && layer.count > 1) {
@@ -32,23 +32,50 @@ export default class Chip extends React.Component<Props, State> {
         angles.push(step * i + angles[0]);
       }
     }
-    return angles.map((angle) => <g
-      transform={`translate(${halfSize}, ${halfSize}) rotate(${angle}) translate(0, -${layer.offset || 0})`}
+    return <g
+      clipPath="url(#chip-clip)"
     >
-      {this.renderLayerKind(layer.kind)}
-    </g>);
+      {angles.map((angle) => <g
+        transform={`translate(${halfSize}, ${halfSize}) rotate(${angle}) translate(0, -${layer.offset || 0})`}
+      >
+        {this.renderLayerKind(layer.kind)}
+      </g>)}
+    </g>;
   }
 
-  renderLayerKind(layerKind: Models.LayerKind) {
+  renderLayerKind(layerKind: Models.LayerKind): JSX.Element {
     switch (layerKind.kind) {
       case Models.CIRCLE: return this.renderCircle(layerKind);
+      case Models.CURVED_RECT: return this.renderCurvedRect(layerKind);
     }
   }
 
-  renderCircle(circle: Models.Circle) {
+  renderCircle(circle: Models.Circle): JSX.Element {
     return <circle
       fill={Models.toRGBA(circle.color)}
       r={circle.radius}
+    />;
+  }
+
+  renderCurvedRect(rect: Models.CurvedRect): JSX.Element {
+    // The amount to adjust the width of the rect corners.
+    const halfWidth = rect.width / 2;
+    const halfHeight = rect.height / 2;
+    const cornerOffset = halfWidth / rect.radius * halfHeight;
+    // Define in parts for readability.
+    const parts = [
+      // Start top left corner.
+      `M -${halfWidth + cornerOffset} -${halfHeight}`,
+      // Curve to the top right corner.
+      `A ${rect.radius + halfHeight} ${rect.radius + halfHeight} 0 0 1 ${halfWidth + cornerOffset} -${halfHeight}`,
+      // Straight to the botton right corner.
+      `L ${halfWidth - cornerOffset} ${halfHeight}`,
+      // Curve to the bottom left corner.
+      `A ${rect.radius - halfHeight} ${rect.radius - halfHeight} 0 0 0 -${halfWidth - cornerOffset} ${halfHeight}`,
+    ];
+    return <path
+      d={parts.join(' ')}
+      fill={Models.toRGBA(rect.color)}
     />;
   }
 
