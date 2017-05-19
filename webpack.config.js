@@ -8,14 +8,14 @@ const extractLess = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devtool: "source-map",
   resolve: {
-    extensions: [".webpack.js", ".web.js", ".js", ".json", ".jsx"],
+    extensions: [".ts", ".tsx", ".webpack.js", ".web.js", ".js", ".json"],
   },
   plugins: [
     extractLess,
@@ -27,17 +27,8 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['flow', 'react', 'es2017'],
-            plugins: ['transform-class-properties'],
-          },
-        },
-      },
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.less$/,
         use: extractLess.extract({
@@ -53,6 +44,5 @@ module.exports = {
   externals: {
     "react": "React",
     "react-dom": "ReactDOM",
-    "three": "THREE",
   },
 };
