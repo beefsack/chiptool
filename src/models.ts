@@ -43,7 +43,7 @@ export interface Circle {
 export interface CurvedRect {
   kind: typeof CURVED_RECT;
   radius: number;
-  width: number;
+  angle: number;
   height: number;
   color: Color;
 }

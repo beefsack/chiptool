@@ -17,7 +17,7 @@ export default class App extends React.Component<Props, State> {
         height={500}
         chip={{
           size: 39,
-          color: { r: 225, g: 119, b: 0, a: 255 },
+          color: { r: 225, g: 128, b: 0, a: 255 },
           layers: [
             {
               kind: {
@@ -37,7 +37,7 @@ export default class App extends React.Component<Props, State> {
               kind: {
                 kind: Models.CURVED_RECT,
                 radius: 19.5,
-                width: 12,
+                angle: 20,
                 height: 10,
                 color: { r: 0, g: 143, b: 255 },
               },
@@ -48,7 +48,7 @@ export default class App extends React.Component<Props, State> {
               kind: {
                 kind: Models.CURVED_RECT,
                 radius: 19.5,
-                width: 3.3,
+                angle: 5.5,
                 height: 10,
                 color: { r: 255, g: 255, b: 255 },
               },

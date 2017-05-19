@@ -58,23 +58,33 @@ export default class Chip extends React.Component<Props, State> {
   }
 
   renderCurvedRect(rect: Models.CurvedRect): JSX.Element {
+    const angleRad = rect.angle / 180 * Math.PI;
+    const direction = Math.PI / 2; // Straight up
+    const halfAngleRad = angleRad / 2;
     // The amount to adjust the width of the rect corners.
-    const halfWidth = rect.width / 2;
     const halfHeight = rect.height / 2;
-    const cornerOffset = halfWidth / rect.radius * halfHeight;
+    const topY = -rect.radius
+      + (rect.radius + halfHeight)
+      * Math.sin(direction + angleRad);
+    const bottomY = -rect.radius
+      + (rect.radius - halfHeight)
+      * Math.sin(direction + angleRad);
+    const topX = (rect.radius + halfHeight) * Math.cos(direction + angleRad);
+    const bottomX = (rect.radius - halfHeight) * Math.cos(direction + angleRad);
     // Define in parts for readability.
     const parts = [
       // Start top left corner.
-      `M -${halfWidth + cornerOffset} -${halfHeight}`,
+      `M ${-topX} ${topY}`,
       // Curve to the top right corner.
-      `A ${rect.radius + halfHeight} ${rect.radius + halfHeight} 0 0 1 ${halfWidth + cornerOffset} -${halfHeight}`,
+      `A ${rect.radius + halfHeight} ${rect.radius + halfHeight} 0 0 1 ${topX} ${topY}`,
       // Straight to the botton right corner.
-      `L ${halfWidth - cornerOffset} ${halfHeight}`,
+      `L ${bottomX} ${bottomY}`,
       // Curve to the bottom left corner.
-      `A ${rect.radius - halfHeight} ${rect.radius - halfHeight} 0 0 0 -${halfWidth - cornerOffset} ${halfHeight}`,
+      `A ${rect.radius - halfHeight} ${rect.radius - halfHeight} 0 0 0 ${-bottomX} ${bottomY}`,
     ];
     return <path
       d={parts.join(' ')}
+      transform="rotate(180)"
       fill={Models.toRGBA(rect.color)}
     />;
   }
