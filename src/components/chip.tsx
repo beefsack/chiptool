@@ -19,10 +19,6 @@ export default class Chip extends React.Component<Props, State> {
     this.renderCircle = this.renderCircle.bind(this);
   }
 
-  minDimension(): number {
-    return Math.min(this.props.width, this.props.height);
-  }
-
   renderLayer(layer: Models.Layer): JSX.Element {
     const halfSize = this.props.chip.size / 2;
     let angles = [layer.angle || 0];
@@ -46,6 +42,7 @@ export default class Chip extends React.Component<Props, State> {
   renderLayerKind(layerKind: Models.LayerKind): JSX.Element {
     switch (layerKind.kind) {
       case Models.CIRCLE: return this.renderCircle(layerKind);
+      case Models.RECT: return this.renderRect(layerKind);
       case Models.CURVED_RECT: return this.renderCurvedRect(layerKind);
       case Models.TEXT: return this.renderText(layerKind);
       case Models.CURVED_TEXT: return this.renderCurvedText(layerKind);
@@ -56,6 +53,16 @@ export default class Chip extends React.Component<Props, State> {
     return <circle
       fill={Models.toRGBA(circle.color)}
       r={circle.radius}
+    />;
+  }
+
+  renderRect(rect: Models.Rect): JSX.Element {
+    return <rect
+      x={-rect.width / 2}
+      y={-rect.height / 2}
+      width={rect.width}
+      height={rect.height}
+      fill={Models.toRGBA(rect.color)}
     />;
   }
 
@@ -96,6 +103,7 @@ export default class Chip extends React.Component<Props, State> {
       fontFamily={text.fontFamily}
       fontSize={text.fontSize}
       fill={Models.toRGBA(text.color)}
+      style={text.style}
     >
       {text.content}
     </text>;
@@ -116,6 +124,7 @@ export default class Chip extends React.Component<Props, State> {
         fontSize={text.text.fontSize}
         textAnchor="middle"
         fill={Models.toRGBA(text.text.color)}
+        style={text.text.style}
       >
         <textPath
           xlinkHref="#fart"

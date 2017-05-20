@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface Color {
   r: number;
   g: number;
@@ -29,12 +31,14 @@ export interface Layer {
 
 export type LayerKind
   = Circle
+  | Rect
   | CurvedRect
   | Text
   | CurvedText
   ;
 
 export const CIRCLE = 'CIRCLE';
+export const RECT = 'RECT';
 export const CURVED_RECT = 'CURVED_RECT';
 export const TEXT = 'TEXT';
 export const CURVED_TEXT = 'CURVED_TEXT';
@@ -42,6 +46,13 @@ export const CURVED_TEXT = 'CURVED_TEXT';
 export interface Circle {
   kind: typeof CIRCLE;
   radius: number;
+  color: Color;
+}
+
+export interface Rect {
+  kind: typeof RECT;
+  width: number;
+  height: number;
   color: Color;
 }
 
@@ -59,6 +70,7 @@ export interface Text {
   fontFamily: string;
   fontSize: number;
   color: Color;
+  style?: React.CSSProperties;
 }
 
 export interface CurvedText {
