@@ -42,6 +42,8 @@ export default class Chip extends React.Component<Props, State> {
   renderLayerKind(layerKind: Models.LayerKind): JSX.Element {
     switch (layerKind.kind) {
       case Models.CIRCLE: return this.renderCircle(layerKind);
+      case Models.ELLIPSE: return this.renderEllipse(layerKind);
+      case Models.TRIANGLE: return this.renderTriangle(layerKind);
       case Models.RECT: return this.renderRect(layerKind);
       case Models.CURVED_RECT: return this.renderCurvedRect(layerKind);
       case Models.TEXT: return this.renderText(layerKind);
@@ -54,6 +56,23 @@ export default class Chip extends React.Component<Props, State> {
       fill={Models.toRGBA(circle.color)}
       r={circle.radius}
     />;
+  }
+
+  renderEllipse(circle: Models.Ellipse): JSX.Element {
+    return <ellipse
+      fill={Models.toRGBA(circle.color)}
+      rx={circle.radiusX}
+      ry={circle.radiusY}
+    />;
+  }
+
+  renderTriangle(tri: Models.Triangle): JSX.Element {
+    const halfHeight = tri.height / 2;
+    const halfWidth = tri.width / 2;
+    return <path
+      fill={Models.toRGBA(tri.color)}
+      d={`M 0 ${-halfHeight} L ${halfWidth} ${halfHeight} L ${-halfWidth} ${halfHeight}`}
+    />
   }
 
   renderRect(rect: Models.Rect): JSX.Element {

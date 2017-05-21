@@ -31,6 +31,8 @@ export interface Layer {
 
 export type LayerKind
   = Circle
+  | Ellipse
+  | Triangle
   | Rect
   | CurvedRect
   | Text
@@ -38,6 +40,8 @@ export type LayerKind
   ;
 
 export const CIRCLE = 'CIRCLE';
+export const ELLIPSE = 'ELLIPSE';
+export const TRIANGLE = 'TRIANGLE';
 export const RECT = 'RECT';
 export const CURVED_RECT = 'CURVED_RECT';
 export const TEXT = 'TEXT';
@@ -46,6 +50,20 @@ export const CURVED_TEXT = 'CURVED_TEXT';
 export interface Circle {
   kind: typeof CIRCLE;
   radius: number;
+  color: Color;
+}
+
+export interface Ellipse {
+  kind: typeof ELLIPSE;
+  radiusX: number;
+  radiusY: number;
+  color: Color;
+}
+
+export interface Triangle {
+  kind: typeof TRIANGLE;
+  width: number;
+  height: number;
   color: Color;
 }
 
