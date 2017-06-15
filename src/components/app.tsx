@@ -92,33 +92,45 @@ export default class App extends React.Component<Props, State> {
           height={300}
           chip={{
             size: CHIP_SIZE,
-            color: { r: 230, g: 151, b: 23, a: 255 },
+            color: { r: 230, g: 45, b: 23 },
             layers: [
               INLAY_BORDER_LAYER,
               INLAY_CENTER_LAYER,
-              wideEdgeSpot({ r: 0, g: 106, b: 255 }),
-              narrowEdgeSpot({ r: 255, g: 255, b: 255 }),
+              wideEdgeSpot({ r: 238, g: 220, b: 208 }),
+              narrowEdgeSpot({ r: 14, g: 82, b: 142 }),
               {
                 kind: {
-                  kind: Models.CIRCLE,
-                  radius: 1.5,
-                  color: { r: 0, g: 106, b: 255 },
+                  kind: Models.RECT,
+                  width: 2,
+                  height: 3,
+                  color: { r: 238, g: 220, b: 208 },
                 },
-                cy: OUTER_RING_CENTER,
-                angle: 8,
+                cy: 15.25,
                 count: 4,
               },
               {
                 kind: {
-                  kind: Models.CIRCLE,
-                  radius: 1.5,
-                  color: { r: 0, g: 106, b: 255 },
+                  kind: Models.RECT,
+                  width: 2,
+                  height: 3,
+                  color: { r: 238, g: 220, b: 208 },
                 },
-                cy: OUTER_RING_CENTER,
-                angle: -8,
+                cx: -2.5,
+                cy: 15.25,
                 count: 4,
               },
-              ringDenomText('25c', { r: 0, g: 106, b: 255 }),
+              {
+                kind: {
+                  kind: Models.RECT,
+                  width: 2,
+                  height: 3,
+                  color: { r: 238, g: 220, b: 208 },
+                },
+                cx: 2.5,
+                cy: 15.25,
+                count: 4,
+              },
+              ringDenomText('25c', { r: 238, g: 220, b: 208 }),
             ],
           }}
         />
@@ -159,45 +171,33 @@ export default class App extends React.Component<Props, State> {
           height={300}
           chip={{
             size: CHIP_SIZE,
-            color: { r: 230, g: 45, b: 23 },
+            color: { r: 230, g: 151, b: 23, a: 255 },
             layers: [
               INLAY_BORDER_LAYER,
               INLAY_CENTER_LAYER,
-              wideEdgeSpot({ r: 238, g: 220, b: 208 }),
-              narrowEdgeSpot({ r: 14, g: 82, b: 142 }),
+              wideEdgeSpot({ r: 0, g: 106, b: 255 }),
+              narrowEdgeSpot({ r: 255, g: 255, b: 255 }),
               {
                 kind: {
-                  kind: Models.RECT,
-                  width: 2,
-                  height: 3,
-                  color: { r: 238, g: 220, b: 208 },
+                  kind: Models.CIRCLE,
+                  radius: 1.5,
+                  color: { r: 0, g: 106, b: 255 },
                 },
-                cy: 15.25,
+                cy: OUTER_RING_CENTER,
+                angle: 8,
                 count: 4,
               },
               {
                 kind: {
-                  kind: Models.RECT,
-                  width: 2,
-                  height: 3,
-                  color: { r: 238, g: 220, b: 208 },
+                  kind: Models.CIRCLE,
+                  radius: 1.5,
+                  color: { r: 0, g: 106, b: 255 },
                 },
-                cx: -2.5,
-                cy: 15.25,
+                cy: OUTER_RING_CENTER,
+                angle: -8,
                 count: 4,
               },
-              {
-                kind: {
-                  kind: Models.RECT,
-                  width: 2,
-                  height: 3,
-                  color: { r: 238, g: 220, b: 208 },
-                },
-                cx: 2.5,
-                cy: 15.25,
-                count: 4,
-              },
-              ringDenomText('$5', { r: 238, g: 220, b: 208 }),
+              ringDenomText('$5', { r: 0, g: 106, b: 255 }),
             ],
           }}
         />
@@ -271,7 +271,7 @@ export default class App extends React.Component<Props, State> {
               INLAY_CENTER_LAYER,
               wideEdgeSpot(BLUE_BELL_SECONDARY),
               narrowEdgeSpot(BLUE_BELL_TERTIARY),
-              ringDenomText('$300', BLUE_BELL_SECONDARY),
+              ringDenomText('$500', BLUE_BELL_SECONDARY),
               {
                 kind: {
                   kind: Models.CIRCLE,
